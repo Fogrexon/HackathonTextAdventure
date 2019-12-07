@@ -1,4 +1,4 @@
-class textViewer
+class TextViewer
 {
     constructor(element)
     {
@@ -10,7 +10,9 @@ class textViewer
     showWord()
     {
         let w = "";
-        while(w!="\\")
+        w += this.stack.charAt(0);
+        this.stack = this.stack.slice(1);
+        if(w == "\\")
         {
             w += this.stack.charAt(0);
             this.stack = this.stack.slice(1);
@@ -35,7 +37,7 @@ class textViewer
             let ths = this;
             this.interval = setInterval(()=>{
                 ths.showWord();
-            }, 50);
+            }, 30);
         }
     }
 
@@ -59,9 +61,65 @@ class textViewer
     
 }
 
+class ButtonController
+{
+    constructor(btn1,btn2,btn3)
+    {
+        this.btn1 = btn1;
+        this.btn2 = btn2;
+        this.btn3 = btn3;
+        let ths = this;
+        let one = () => {
+            ths.oneClick();
+        }
+        let two = () => {
+            ths.twoClick();
+        }
+        let three = () => {
+            ths.threeClick();
+        }
+
+        this.btn1.addEventListener("click", one);
+        this.btn2.addEventListener("click", two);
+        this.btn3.addEventListener("click", three);
+        window.addEventListener("keydown", (e)=>{
+            switch(e.key)
+            {
+                case "1":{
+                    ths.oneClick();
+                    break;
+                }
+                case "2":{
+                    ths.twoClick();
+                    break;
+                }
+                case "3":{
+                    ths.threeClick();
+                    break;
+                }
+
+            }
+        });
+        this.game = null;
+    }
+
+    oneClick()
+    {
+        this.game.onSelected(0);
+    }
+    twoClick()
+    {
+        this.game.onSelected(1);
+    }
+    threeClick()
+    {
+        this.game.onSelected(2);
+    }
+}
+
 class Game
 {
-    constructor(scenario, textViewer)
+    constructor(scenario, textViewer, ButtonController)
     {
 
     }
