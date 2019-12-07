@@ -4,6 +4,22 @@ class textViewer
     {
         this.console = element;
         this.stack = "";
+        this.text = "";
+    }
+
+    showWord()
+    {
+        let w = "";
+        while(w!="\\")
+        {
+            w += this.stack.charAt(0);
+            this.stack = this.stack.slice(1);
+        }
+        console.log(w);
+        this.text += w;
+        this.console.innerText = this.text;
+        if(stack=="") this.stopText();
+        
     }
     
     setText(text)
@@ -16,17 +32,28 @@ class textViewer
     {
         if(!this.interval)
         {
-            this.interbal = setInterval(this.showWord, 50);
+            let ths = this;
+            this.interval = setInterval(()=>{
+                ths.showWord();
+            }, 50);
         }
     }
 
     stopText()
     {
-        if(!this.
-            interval)
+        if(!!this.interval)
         {
-            this.interbal = setInterval(this.showWord, 50);
+            clearInterval(this.interval);
+            this.interval = null;
         }
+    }
+
+    clearShow()
+    {
+        this.stopText();
+        this.stack = "";
+        this.text = "";
+        this.console.innerText = "";
     }
 
     
@@ -35,4 +62,7 @@ class textViewer
 class Game
 {
     constructor(scenario, textViewer)
+    {
+
+    }
 }
