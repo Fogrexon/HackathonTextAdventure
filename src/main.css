@@ -12,7 +12,6 @@ body
     width: 1920px;
     height: 1080px;
     background: transparent url('../img/Background.png') 0% 0% no-repeat padding-box;
-    border: 1px solid #707070;
     opacity: 1;
 }
 
@@ -23,8 +22,7 @@ body
     left: 31px;
     width: 1372px;
     height: 168px;
-    background: transparent url('img/Logo.png') 0% 0% no-repeat padding-box;
-    border: 1px solid #707070;
+    background: transparent url('img/Logo.png') 0% 0% no-repeat;
     opacity: 1;
 }
 
@@ -36,8 +34,12 @@ body
     width: 297px;
     height: 292px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 1px solid #707070;
     opacity: 1;
+}
+#face
+{
+    width : 100%;
+    height : 100%;
 }
 
 #text_container
@@ -48,7 +50,6 @@ body
     width: 1372px;
     height: 819px;
     background: #000000 0% 0% no-repeat padding-box;
-    border: 1px solid #707070;
     opacity: 1;
     color : white;
     font-size : 30px;
@@ -62,10 +63,14 @@ body
     left: 1565px;
     width: 200px;
     height: 200px;
-    background: #FF0000 0% 0% no-repeat padding-box;
-    border: 1px solid #707070;
-    opacity: 1;
+    background-image:url("../img/Buttons/bottun_N0.png");
+    background-size:contain;
     font-size : 60px;
+}
+
+#button1:active
+{
+    background-image:url("../img/Buttons/bottun_N1.png");
 }
 
 #button2
@@ -75,10 +80,14 @@ body
     left: 1440px;
     width: 200px;
     height: 200px;
-    background: #00E8FF 0% 0% no-repeat padding-box;
-    border: 1px solid #707070;
-    opacity: 1;
+    background-image:url("../img/Buttons/bottun_W0.png");
+    background-size:contain;
     font-size : 60px;
+}
+
+#button2:active
+{
+    background-image:url("../img/Buttons/bottun_W1.png");
 }
 
 #button3
@@ -88,10 +97,25 @@ body
     left: 1694px;
     width: 200px;
     height: 200px;
-    background: #3AFF00 0% 0% no-repeat padding-box;
-    border: 1px solid #707070;
-    opacity: 1;
+    background-image:url("../img/Buttons/bottun_E0.png");
+    background-size:contain;
     font-size : 60px;
+}
+
+#button2:active
+{
+    background-image:url("../img/Buttons/bottun_E1.png");
+}
+
+input[type="button"]
+{
+    opacity:1.0;
+    border-width : 0px;
+}
+input[type="button"]:disabled
+{
+    opacity : 0.6;
+    cursor : not-allowed;
 }
 
 footer

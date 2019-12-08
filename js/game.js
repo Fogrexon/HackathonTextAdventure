@@ -61,13 +61,14 @@ class TextViewer
     
 }
 
-class ButtonController
+class ElementController
 {
-    constructor(btn1,btn2,btn3)
+    constructor(btn1,btn2,btn3,face)
     {
         this.btn1 = btn1;
         this.btn2 = btn2;
         this.btn3 = btn3;
+        this.face = face;
         let ths = this;
         let one = () => {
             ths.oneClick();
@@ -83,17 +84,21 @@ class ButtonController
         this.btn2.addEventListener("click", two);
         this.btn3.addEventListener("click", three);
         window.addEventListener("keydown", (e)=>{
+            console.log(e.key);
             switch(e.key)
             {
-                case "1":{
+                case "ArrowUp":
+                case "w":{
                     ths.oneClick();
                     break;
                 }
-                case "2":{
+                case "ArrowLeft":
+                case "a":{
                     ths.twoClick();
                     break;
                 }
-                case "3":{
+                case "ArrowRight":
+                case "d":{
                     ths.threeClick();
                     break;
                 }
@@ -122,17 +127,22 @@ class ButtonController
         this.btn2.disabled = len < 2;
         this.btn3.disabled = len < 3;
     }
+
+    setFace(src)
+    {
+        this.face.src = src;
+    }
 }
 
 
 class Game
 {
-    constructor(scenario, textViewer, buttonController)
+    constructor(scenario, textViewer, elementController)
     {
         this.scenario = scenario;
         this.textViewer = textViewer;
-        this.buttonController = buttonController;
-        buttonController.game = this;
+        this.elementController = elementController;
+        elementController.game = this;
     }
 
     initialize()
@@ -167,10 +177,13 @@ class Game
             }
         }
 
+        this.elementController.setFace(this.scenario.resources[face].src);
+
         let activeIndex = [];
         let num = 0;
         let choiceList = "";
         let exp;
+        const list = ["N","W","E"]
         if(!!choice)
         {
             for(let i=0;i<choice.length;i++)
@@ -184,19 +197,19 @@ class Game
                 }
                 activeIndex.push(choice[i].index);
                 num++;
-                choiceList += num+") "+choice[i].text+"\n";
+                choiceList += list[num-1]+") "+choice[i].text+"\n";
             }
         }
 
         if(this.isEnd)
         {
-            choiceList = "1) 終了";
+            choiceList = "N) 終了";
             activeIndex.push(0);
         }
 
         this.activeIndex = activeIndex;
 
-        this.buttonController.setActive(activeIndex.length);
+        this.elementController.setActive(activeIndex.length);
 
         this.textViewer.setText(text + choiceList);
     }

@@ -16,7 +16,7 @@ class Scenario
                 cb();
             }
         }
-        callback.bind(this);
+        callbackJson.bind(this);
         let fl = new FileLoad();
         fl.loadJson(this.url, callbackJson);
         const resList = ["normal","surprised","happy","sad"];
@@ -28,10 +28,11 @@ class Scenario
             }
         }
 
+        callbackImage.bind(this);
         for(let i=0;i<resList.length;i++)
         {
             this.resources[resList[i]] = new Image();
-            this.resources[resList[i]].addEvenetListener("load",callbackImage);
+            this.resources[resList[i]].addEventListener("load",callbackImage);
             this.resources[resList[i]].src = "img/"+resList[i]+".png";
         }
     }
