@@ -1,0 +1,61 @@
+[
+    {
+        "text":"タイトル",
+        "isEnd":false,
+        "face":null,
+        "choice":[
+            {
+                "text":"開始",
+                "index": 1,
+                "expression":null
+            }
+        ],
+        "variable":null
+    },
+    {
+        "text":"どうする？",
+        "isEnd":false,
+        "face":null,
+        "choice":[
+            {
+                "text":"北",
+                "index": 2
+            },
+            {
+                "text":"南",
+                "index": 2
+            },
+            {
+                "text":"東",
+                "index": 2
+            }
+        ],
+        "variable":[
+            {
+                "name":"ken",
+                "add":1
+            }
+        ]
+    },
+    {
+        "text":"選択肢",
+        "isEnd":false,
+        "face":null,
+        "choice":[
+            {
+                "text":"ken選択",
+                "index": 0,
+                "expression":{
+                    "name":"ken",
+                    "operator":"=",
+                    "num": 1
+                }
+            },
+            {
+                "text":"ken選択以外",
+                "index": 0
+            }
+        ],
+        "variable":null
+    }
+]

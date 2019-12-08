@@ -20,13 +20,14 @@ class TextViewer
         console.log(w);
         this.text += w;
         this.console.innerText = this.text;
-        if(stack=="") this.stopText();
+        if(this.stack=="") this.stopText();
         
     }
     
     setText(text)
     {
         this.stack += text;
+        console.log(this.stack);
         this.playText();
     }
 
@@ -115,12 +116,106 @@ class ButtonController
     {
         this.game.onSelected(2);
     }
+
+    setValue(values)
+    {
+        let one,two,three;
+        if(values.length==3)
+        {
+            one = values[0];
+            two = values[1];
+            three = values[2];
+        }else if(values.length==2){
+            one = values[0];
+            two = values[1];
+            three = "";
+        }else{
+            one = values[0];
+            two = "";
+            three = "";
+        }
+        this.btn1.value = one;
+        this.btn2.value = two;
+        this.btn3.value = three;
+    }
 }
+
 
 class Game
 {
-    constructor(scenario, textViewer, ButtonController)
+    constructor(scenario, textViewer, buttonController)
     {
+        this.scenario = scenario;
+        this.textViewer = textViewer;
+        this.buttonController = buttonController;
+        buttonController.game = this;
+    }
+
+    initialize()
+    {
+        let ths = this;
+        this.scenario.load(()=>{
+            ths.goScene(0);
+        });
+        this.textViewer.clearShow();
+        this.isEnd = false;
+        this.variables = {};
 
     }
+
+    goScene(n)
+    {
+        this.textViewer.clearShow();
+
+        const scene = this.scenario.scenario[n];
+        const face = !!scene.face ? scene.face : "normal";
+        this.isEnd = scene.isEnd;
+        const variable = scene.variable;
+        const choice = scene.choice;
+
+        let text = scene.text + "\n";
+        if(!!variable)
+        {
+            for(let i=0;i<variable.length;i++)
+            {
+                if(!this.variables[variable[i].name]) this.variables[variable[i].name] = 0;
+                this.variables[variable[i].name] += variable[i].add;
+            }
+        }
+
+        let activeIndex = [];
+        let num = 0;
+        let choiceList = "";
+        let exp;
+        if(!!choice)
+        {
+        for(let i=0;i<choice.length;i++)
+            {
+                exp = choice[i].expression;
+
+                if(!!exp&&!Util.solveExpression(exp.name, exp.operator, exp.num)) continue;
+                activeIndex.push(choice[i].index);
+                num++;
+                choiceList += num+") "+choice[i].text+"\n";
+            }
+        }
+
+        if(this.isEnd) choiceList = "1) 終了";
+
+        this.activeIndex = activeIndex;
+
+        this.textViewer.setText(text + choiceList);
+    }
+
+    onSelected(n)
+    {
+        if(this.isEnd) 
+        {
+            this.goScene(0);
+            return;
+        }
+        console.log("GOTO "+this.activeIndex[n]);
+        this.goScene(this.activeIndex[n]);
+    }
+
 }
