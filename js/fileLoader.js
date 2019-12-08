@@ -5,7 +5,7 @@ class FileLoad
 
     }
 
-    load(url, callback)
+    loadJson(url, callback)
     {
         let req = new XMLHttpRequest();
         req.onreadystatechange = () => {

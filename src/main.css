@@ -6,26 +6,95 @@ body
 
 #gameboard
 {
-    width : 100%;
-    height : 100%;
-    position : absolute;
-    top : 0px;
-    left : 0px;
+    position:absolute;
+    top: 0px;
+    left: 0px;
+    width: 1920px;
+    height: 1080px;
+    background: transparent url('../img/Background.png') 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+}
+
+#title_logo
+{
+    position:absolute;
+    top: 33px;
+    left: 31px;
+    width: 1372px;
+    height: 168px;
+    background: transparent url('img/Logo.png') 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
 }
 
 #image_container
 {
-    height : 10%;
+    position:absolute;
+    top: 122px;
+    left: 1516px;
+    width: 297px;
+    height: 292px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
 }
 
 #text_container
 {
-    height : 80%;
-    background-color : black;
+    position:absolute;
+    top: 227px;
+    left: 31px;
+    width: 1372px;
+    height: 819px;
+    background: #000000 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
     color : white;
+    font-size : 30px;
+    word-wrap: break-word;
 }
 
-#button_container
+#button1
 {
-    height : 10%;
+    position:absolute;
+    top: 540px;
+    left: 1565px;
+    width: 200px;
+    height: 200px;
+    background: #FF0000 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+    font-size : 60px;
+}
+
+#button2
+{
+    position:absolute;
+    top: 794px;
+    left: 1440px;
+    width: 200px;
+    height: 200px;
+    background: #00E8FF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+    font-size : 60px;
+}
+
+#button3
+{
+    position:absolute;
+    top: 794px;
+    left: 1694px;
+    width: 200px;
+    height: 200px;
+    background: #3AFF00 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+    font-size : 60px;
+}
+
+footer
+{
+
 }
