@@ -4,22 +4,23 @@ class TextViewer
     {
         this.console = element;
         this.stack = "";
-        this.text = "";
+        this.text = 0;
     }
 
     showWord()
     {
-        let w = "";
-        w += this.stack.charAt(0);
-        this.stack = this.stack.slice(1);
-        if(w == "\\")
-        {
-            w += this.stack.charAt(0);
-            this.stack = this.stack.slice(1);
-        }
-        this.text += w;
-        this.console.innerText = this.text;
-        if(this.stack=="") this.stopText();
+        // let w = "";
+        // w += this.stack.charAt(0);
+        // this.stack = this.stack.slice(1);
+        // if(w == "\\")
+        // {
+        //     w += this.stack.charAt(0);
+        //     this.stack = this.stack.slice(1);
+        // }
+        // this.text += w;
+        this.console.innerText = this.stack.substring(0,this.text);
+        this.text++;
+        if(this.text==this.stack.length) this.stopText();
         
     }
     
@@ -54,7 +55,7 @@ class TextViewer
     {
         this.stopText();
         this.stack = "";
-        this.text = "";
+        this.text = 0;
         this.console.innerText = "";
     }
 
@@ -84,7 +85,7 @@ class ElementController
         this.btn2.addEventListener("click", two);
         this.btn3.addEventListener("click", three);
         window.addEventListener("keydown", (e)=>{
-            console.log(e.key);
+            e.preventDefault();
             switch(e.key)
             {
                 case "ArrowUp":
@@ -212,6 +213,9 @@ class Game
         this.elementController.setActive(activeIndex.length);
 
         this.textViewer.setText(text + choiceList);
+        let size = 30;
+        if(n==0) size = 15;
+        this.textViewer.console.style = "font-size:"+size+"px;";
     }
 
     onSelected(n)

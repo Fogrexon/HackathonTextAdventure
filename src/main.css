@@ -52,8 +52,8 @@ body
     background: #000000 0% 0% no-repeat padding-box;
     opacity: 1;
     color : white;
-    font-size : 30px;
     word-wrap: break-word;
+    font : Arial;
 }
 
 #button1
