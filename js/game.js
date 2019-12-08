@@ -17,7 +17,6 @@ class TextViewer
             w += this.stack.charAt(0);
             this.stack = this.stack.slice(1);
         }
-        console.log(w);
         this.text += w;
         this.console.innerText = this.text;
         if(this.stack=="") this.stopText();
@@ -38,7 +37,7 @@ class TextViewer
             let ths = this;
             this.interval = setInterval(()=>{
                 ths.showWord();
-            }, 30);
+            }, 10);
         }
     }
 
@@ -117,26 +116,11 @@ class ButtonController
         this.game.onSelected(2);
     }
 
-    setValue(values)
+    setActive(len)
     {
-        let one,two,three;
-        if(values.length==3)
-        {
-            one = values[0];
-            two = values[1];
-            three = values[2];
-        }else if(values.length==2){
-            one = values[0];
-            two = values[1];
-            three = "";
-        }else{
-            one = values[0];
-            two = "";
-            three = "";
-        }
-        this.btn1.value = one;
-        this.btn2.value = two;
-        this.btn3.value = three;
+        this.btn1.disabled = false;
+        this.btn2.disabled = len < 2;
+        this.btn3.disabled = len < 3;
     }
 }
 
@@ -189,32 +173,37 @@ class Game
         let exp;
         if(!!choice)
         {
-        for(let i=0;i<choice.length;i++)
+            for(let i=0;i<choice.length;i++)
             {
                 exp = choice[i].expression;
+                if(!!exp)
+                {
+                    if(!this.variables[exp.name]) this.variables[exp.name] = 0;
+                    if(!Util.solveExpression(this.variables[exp.name], exp.operator, exp.num)) continue;
 
-                if(!!exp&&!Util.solveExpression(exp.name, exp.operator, exp.num)) continue;
+                }
                 activeIndex.push(choice[i].index);
                 num++;
                 choiceList += num+") "+choice[i].text+"\n";
             }
         }
 
-        if(this.isEnd) choiceList = "1) 終了";
+        if(this.isEnd)
+        {
+            choiceList = "1) 終了";
+            activeIndex.push(0);
+        }
 
         this.activeIndex = activeIndex;
+
+        this.buttonController.setActive(activeIndex.length);
 
         this.textViewer.setText(text + choiceList);
     }
 
     onSelected(n)
     {
-        if(this.isEnd) 
-        {
-            this.goScene(0);
-            return;
-        }
-        console.log("GOTO "+this.activeIndex[n]);
+        if(this.activeIndex.length < n+1) return; 
         this.goScene(this.activeIndex[n]);
     }
 
